@@ -2,6 +2,7 @@ package dev.saraiva.Booklist.Controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.saraiva.Booklist.Model.UserModel;
+import dev.saraiva.Booklist.DTO.UserRequestDTO;
+import dev.saraiva.Booklist.DTO.UserResponseDTO;
 import dev.saraiva.Booklist.Service.UserService;
 
 @RestController
@@ -26,32 +28,34 @@ public class UserController {
 
     // Create user
     @PostMapping("/create")
-    public UserModel createUser(@RequestBody UserModel userModel) {
-        return userService.createUser(userModel);
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+        UserResponseDTO created = userService.createUser(userRequestDTO);
+        return ResponseEntity.ok(created);
     }
 
     // Get user
     @GetMapping("/get")
-    public List<UserModel> getUser() {
-        return userService.getUser();
+    public ResponseEntity<List<UserResponseDTO>> getUser() {
+        return ResponseEntity.ok(userService.getUser());
     }
 
     // Get user by ID
     @GetMapping("/get/{id}")
-    public UserModel getUser(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     // Delete user by ID
     @DeleteMapping("/delete/{id}")
-    public String deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
         userService.deleteUserByID(id);
-        return "User deleted";
+        return ResponseEntity.ok("User Deleted");
     }
 
     // Update user by ID
     @PutMapping("/update/{id}")
-    public UserModel updateUserByID(@PathVariable Long id, @RequestBody UserModel userModel) {
-        return userService.updateUserById(userModel, id);
+    public ResponseEntity<UserResponseDTO> updateUserByID(@PathVariable Long id, @RequestBody UserRequestDTO userRequestDTO) {
+        UserResponseDTO userResponseDTO = userService.updateUserById(userRequestDTO, id);
+        return ResponseEntity.ok(userResponseDTO);
     }
 }
