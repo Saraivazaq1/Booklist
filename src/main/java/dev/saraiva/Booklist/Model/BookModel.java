@@ -1,5 +1,7 @@
 package dev.saraiva.Booklist.Model;
 
+import java.util.List;
+
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class BookModel {
 
     private String title;
-    private String author;
+    private List<String> author;
 }
