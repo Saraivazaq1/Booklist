@@ -1,5 +1,6 @@
 package dev.saraiva.Booklist.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CollectionTable;
@@ -36,5 +37,5 @@ public class UserModel {
         name = "tb_favorites",
         joinColumns = @JoinColumn(name = "user_id")
     )
-    private List<BookModel> books;
+    private List<BookModel> books = new ArrayList<>();
 }
